@@ -103,6 +103,7 @@
 <body>
     <div class="gm4html5_div_class" id="gm4html5_div_id">
                   <button id="export">export</button><br>
+          <button id="x2" class="button">get your x2 bonus</button><br>
 <script>
     // Export functionality  
     document.getElementById("export").onclick = () => {
@@ -123,6 +124,33 @@
             alert('No data found to export.');
         }
     };
+
+    
+		  document.getElementById("x2").addEventListener("click", () => {
+    if (localStorage.getItem("RetroBowlCollege.0.savedata.ini")) {
+        let z = prompt("How many credits do you have right now (please input correct number)");
+        
+        // Ensure 'z' is a valid number
+        if (isNaN(z) || z === null) {
+            alert("Please input a valid number.");
+            return;
+        }
+        
+        let x = localStorage.getItem("RetroBowlCollege.0.savedata.ini");
+        
+        // Use a regular expression to replace the coach_credit value
+        let updatedCredits = parseInt(z) + 3;
+        let y = x.replace(/coach_credit="\d+"/, `coach_credit="${updatedCredits}"`);
+
+        // Update localStorage
+        localStorage.setItem("RetroBowlCollege.0.savedata.ini", y);
+        
+        // Reload the page
+        window.location.reload();
+    } else {
+        alert("You must open up a new game save first!");
+    }
+});
 </script>
 
         <!-- Builtin injector for splash screen -->
